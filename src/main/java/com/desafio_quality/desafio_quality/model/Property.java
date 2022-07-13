@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Property {
     private String propertyName;
-    private String propertyDistrict;
+    private District propertyDistrict;
     private List<Room> listRooms;
 
 }

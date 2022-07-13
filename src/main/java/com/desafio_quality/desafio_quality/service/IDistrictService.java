@@ -4,5 +4,5 @@ import com.desafio_quality.desafio_quality.model.District;
 
 public interface IDistrictService {
 
-    Double propertyTotalValue ();
+    Double residenceTotalValue ();
 }

@@ -12,7 +12,7 @@ public class DistrictServiceImp implements IDistrictService {
     private DistrictRepository districtRepository;
 
     @Override
-    public Double propertyTotalValue() {
+    public Double residenceTotalValue() {
         return null;
     }
 }

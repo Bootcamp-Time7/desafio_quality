@@ -13,19 +13,17 @@ import java.util.List;
 @Repository
 public class RoomRepository {
 
-    private final static String roomJsonFile = "src/main/resources/room.json";
+    private List<Room>  roomData = new ArrayList ();
 
-    public List<Room> getAllRoom (){
-        ObjectMapper lendoJsonRoom = new ObjectMapper();
-        List<Room> listRoom = new ArrayList<>();
-    try{
-        listRoom = Arrays.asList(lendoJsonRoom.readValue(new File(roomJsonFile), Room[].class));
-    }
-    catch(Exception e ) {
+    public void saveRoom (Room newRoom){
 
-        }
-    return null;
+        this.roomData.add(newRoom);
     }
+
+    public List<Room> getAllRoom () {
+        return this.roomData;
+    }
+
 
 
 }

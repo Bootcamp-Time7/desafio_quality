@@ -13,11 +13,14 @@ import java.util.List;
 @Service
 public class ResidenceService implements IResidenceService {
 
-    @Autowired
-    private ResidenceRepository residenceRepository;
+    private  ResidenceRepository residenceRepository;
 
-    @Autowired
     private DistrictRepository districtRepository;
+
+    public ResidenceService(ResidenceRepository residenceRepository, DistrictRepository districtRepository) {
+        this.residenceRepository = residenceRepository;
+        this.districtRepository = districtRepository;
+    }
 
     @Override
     public Double squareResidence(Residence residence) {
@@ -74,7 +77,8 @@ public class ResidenceService implements IResidenceService {
     }
     @Override
     public Residence calculateBiggestCommode(String residence) {
-        return null;
+       return this.read(residence);
+
     }
 
 //

@@ -20,9 +20,7 @@ public class ResidenceController {
 
     @PostMapping("/registerResidence")
     public ResponseEntity<Residence> registerResidence (@RequestBody Residence residence){
-//        if(residence.getResidenceName()!=null){
-//            return null;// residencia já existe"
-//        }
+
         residenceService.create(residence);
         return ResponseEntity.ok(residence);
     }

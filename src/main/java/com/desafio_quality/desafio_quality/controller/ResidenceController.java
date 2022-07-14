@@ -1,6 +1,7 @@
 package com.desafio_quality.desafio_quality.controller;
 
 import com.desafio_quality.desafio_quality.model.Residence;
+import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.service.IResidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,11 @@ public class ResidenceController {
 
         residenceService.create(residence);
         return ResponseEntity.ok(residence);
+    }
+
+    @GetMapping("/calculateBiggestCommode/{residenceName}")
+    public ResponseEntity<Room> calculateBiggestCommode(@PathVariable  String residenceName) {
+        return ResponseEntity.ok(residenceService.calculateBiggestRoom(residenceName));
     }
 
     @GetMapping("/roomSquare/{residence}")

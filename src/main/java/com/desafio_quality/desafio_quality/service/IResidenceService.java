@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IResidenceService {
 
-    Room majorRoom (Residence residence);
+    Room calculateBiggestRoom(String residence);
 
     Double squareResidence (Residence residence); //soma das areas de todos os comodos
 

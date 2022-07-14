@@ -4,25 +4,22 @@ import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class ResidenceService implements IResidenceService {
 
-    @Autowired
-    private ResidenceRepository residenceRepository;
+    private  ResidenceRepository residenceRepository;
 
-    @Autowired
     private DistrictRepository districtRepository;
 
-
-    @Override
-    public Room majorRoom(Residence residence) {
-        return null;
+    public ResidenceService(ResidenceRepository residenceRepository, DistrictRepository districtRepository) {
+        this.residenceRepository = residenceRepository;
+        this.districtRepository = districtRepository;
     }
 
     @Override
@@ -73,12 +70,13 @@ public class ResidenceService implements IResidenceService {
     public List<String> getSquareRooms(String residence){
         String residencieRoom = null;
         List<String> roomSquareList = new ArrayList<>();
+        //TODO ARRUMAR PARA USAR O getByName, vai trazer somente uma residência
         List<Residence> residenceList = residenceRepository.getAllResidence();
         for(Residence r : residenceList){
             if(r.getResidenceName().equalsIgnoreCase(residence)){
                 List<Room> roomList = r.getListRooms();
                 for(Room room : roomList){
-                  residencieRoom = "" + room.getRoomName() + ": " + Room.SquareRoom(room);
+                  residencieRoom = "" + room.getRoomName() + ": " + Room.CalculateArea(room);
                   roomSquareList.add(residencieRoom);
                 }
             }
@@ -93,7 +91,7 @@ public class ResidenceService implements IResidenceService {
             if(r.getResidenceName().equalsIgnoreCase(residenceName)){
                 List<Room> roomList = r.getListRooms();
                 for(Room room : roomList){
-                    Double squareRoom = Room.SquareRoom(room);
+                    Double squareRoom = Room.CalculateArea(room);
                     totalArea = totalArea + squareRoom;
                 }
             }
@@ -110,7 +108,7 @@ public class ResidenceService implements IResidenceService {
                 tempResidence = r;
                 List<Room> roomList = r.getListRooms();
                 for(Room room : roomList){
-                    Double squareRoom = Room.SquareRoom(room);
+                    Double squareRoom = Room.CalculateArea(room);
                     totalArea = totalArea + squareRoom;
                 }
             }
@@ -131,5 +129,16 @@ public class ResidenceService implements IResidenceService {
 //
 //        for (Room roomIterator:tempRoomList){
 //        totalArea +=  roomIterator.getRoomLength()*roomIterator.getRoomWidth();
+//    }
+    public Room  calculateBiggestRoom(String residence) {
+        var listRooms = residenceRepository.getByName(residence).getListRooms();
+
+        return listRooms
+                .stream().max(Comparator.comparing(Room::CalculateArea)).get();
+    }
+
+//
+//    public boolean verifyIfResidenceExists (String residenceName){
+//        if (residenceName.equals())
 //    }
 }

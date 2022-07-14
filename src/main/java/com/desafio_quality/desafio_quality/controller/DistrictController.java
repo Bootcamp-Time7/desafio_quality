@@ -1,14 +1,14 @@
 package com.desafio_quality.desafio_quality.controller;
 
 import com.desafio_quality.desafio_quality.model.District;
+import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.service.IDistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/District")
@@ -24,5 +24,9 @@ public class DistrictController {
         return ResponseEntity.ok(district);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity <List<District>>  findAll (){
 
+        return ResponseEntity.ok(districtService.findAll());
+    }
 }

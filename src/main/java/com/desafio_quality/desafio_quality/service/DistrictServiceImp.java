@@ -27,7 +27,15 @@ public class DistrictServiceImp implements IDistrictService {
 
     @Override
     public District create(District district) {
-        if(!verifyIfDistrictExists(district.getName())){
+        List<District> tempDistrictList = findAll();
+        boolean found = false;
+        for (District r : tempDistrictList){
+            if(r.getName().equalsIgnoreCase(district.getName())) {
+                found = true;
+                System.out.print("esse elemento ja existe"); // TODO Throw New Exception
+            }
+        }
+        if (!found){
             districtRepository.saveDistrict(district);
         }
         return this.returnDistrict(district);

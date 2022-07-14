@@ -17,4 +17,8 @@ public interface IResidenceService {
     void create(Residence residence);
 
     Residence read(String name);
+
+    public boolean verifyIfResidenceExists (String residenceName);
+
+    public List <String> getSquareRooms(String residence);
 }

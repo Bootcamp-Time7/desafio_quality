@@ -19,10 +19,10 @@ public class DistrictController {
 
     @PostMapping ("/registerDistrict")
     public ResponseEntity<District> registerDistrict (@RequestBody District district){
-        if(district.getName()!=null){
-            return null;// bairo já existe"
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(districtService.create(district));
+
+        districtService.create(district);
+        return ResponseEntity.ok(district);
     }
+
 
 }

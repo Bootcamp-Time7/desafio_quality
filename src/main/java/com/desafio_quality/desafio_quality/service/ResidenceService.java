@@ -4,10 +4,10 @@ import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
-import com.desafio_quality.desafio_quality.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +18,6 @@ public class ResidenceService implements IResidenceService {
 
     @Autowired
     private DistrictRepository districtRepository;
-
-    @Autowired
-    private RoomRepository roomRepository;
 
     @Override
     public Double squareResidence(Residence residence) {
@@ -34,7 +31,9 @@ public class ResidenceService implements IResidenceService {
 
     @Override
     public void create(Residence residence) {
-        residenceRepository.saveResidence(residence);
+        if(!verifyIfResidenceExists(residence.getResidenceName())){
+            residenceRepository.saveResidence(residence);
+        }
         this.returnResidence(residence);
     }
 
@@ -46,6 +45,32 @@ public class ResidenceService implements IResidenceService {
     public Residence read(String residenceName) {
 
         return residenceRepository.getByName(residenceName);
+    }
+
+    public boolean verifyIfResidenceExists (String residenceName){
+        for(Residence r :residenceRepository.getListResidence()){
+            if (residenceName.equals(r.getResidenceName())){
+                System.out.println("erro");
+                //TODO throw new
+            }
+        }
+        return false;
+    }
+
+    public List<String> getSquareRooms(String residence){
+        String residencieRoom =null;
+        List<String> roomSquareList = new ArrayList<>();
+        List<Residence> residenceList = residenceRepository.getAllResidence();
+        for(Residence r : residenceList){
+            if(r.getResidenceName().equalsIgnoreCase(residence)){
+                List<Room> roomList = r.getListRooms();
+                for(Room room : roomList){
+                  residencieRoom = "" + room.getRoomName() + ": " + Room.SquareRoom(room);
+                  roomSquareList.add(residencieRoom);
+                }
+            }
+        }
+        return roomSquareList;
     }
     @Override
     public Residence calculateBiggestCommode(String residence) {

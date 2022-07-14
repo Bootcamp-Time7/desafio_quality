@@ -6,10 +6,7 @@ import com.desafio_quality.desafio_quality.service.IResidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Residence")
@@ -25,5 +22,10 @@ public class ResidenceController {
 //        }
         residenceService.create(residence);
         return ResponseEntity.ok(residence);
+    }
+
+    @GetMapping("/calculateBiggestCommode/{residenceName}")
+    public ResponseEntity<Residence> calculateBiggestCommode(@PathVariable  String residenceName) {
+        return ResponseEntity.ok(residenceService.calculateBiggestCommode(residenceName));
     }
 }

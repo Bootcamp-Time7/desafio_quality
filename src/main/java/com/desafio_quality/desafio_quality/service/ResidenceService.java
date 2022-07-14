@@ -22,12 +22,6 @@ public class ResidenceService implements IResidenceService {
     @Autowired
     private RoomRepository roomRepository;
 
-
-    @Override
-    public Room majorRoom(Residence residence) {
-        return null;
-    }
-
     @Override
     public Double squareResidence(Residence residence) {
         return null;
@@ -53,6 +47,11 @@ public class ResidenceService implements IResidenceService {
 
         return residenceRepository.getByName(residenceName);
     }
+    @Override
+    public Residence calculateBiggestCommode(String residence) {
+        return null;
+    }
+
 //
 //    public boolean verifyIfResidenceExists (String residenceName){
 //        if (residenceName.equals())

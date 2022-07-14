@@ -15,12 +15,13 @@ public class DistrictRepository {
 
     private List<District> districtData = new ArrayList<>();
 
-    public void saveDistrict (District district) {
+    public District saveDistrict (District district) {
         this.districtData.add(district);
-
+        return null;
     }
 
     public List<District> getAllDistrict (){
+
         return this.districtData;
     }
 

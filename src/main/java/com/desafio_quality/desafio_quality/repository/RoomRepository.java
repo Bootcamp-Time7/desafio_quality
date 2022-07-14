@@ -21,9 +21,7 @@ public class RoomRepository {
     }
 
     public List<Room> getAllRoom () {
+
         return this.roomData;
     }
-
-
-
 }

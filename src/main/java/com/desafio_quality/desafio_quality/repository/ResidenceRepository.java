@@ -21,11 +21,13 @@ public class ResidenceRepository {
     }
 
     public List<Residence> getAllResidence (){
+
         return this.residenceData;
     }
 
 
     public Residence getByName (String residenceName) {
+
         Residence tempResidence=null;
 
         for (Residence p : residenceData) {

@@ -40,7 +40,9 @@ public class ResidenceService implements IResidenceService {
 
     @Override
     public void create(Residence residence) {
-        residenceRepository.saveResidence(residence);
+        if(!verifyIfResidenceExists(residence.getResidenceName())){
+            residenceRepository.saveResidence(residence);
+        }
         this.returnResidence(residence);
     }
 
@@ -53,8 +55,14 @@ public class ResidenceService implements IResidenceService {
 
         return residenceRepository.getByName(residenceName);
     }
-//
-//    public boolean verifyIfResidenceExists (String residenceName){
-//        if (residenceName.equals())
-//    }
+
+    public boolean verifyIfResidenceExists (String residenceName){
+        for(Residence r :residenceRepository.getListResidence()){
+            if (residenceName.equals(r.getResidenceName())){
+                System.out.println("erro");
+                //TODO throw new
+            }
+        }
+        return false;
+    }
 }

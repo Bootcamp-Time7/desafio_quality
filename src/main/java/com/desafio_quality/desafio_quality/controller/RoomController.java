@@ -12,5 +12,4 @@ public class RoomController {
 
     @Autowired
     private IRoomService roomService;
-
 }

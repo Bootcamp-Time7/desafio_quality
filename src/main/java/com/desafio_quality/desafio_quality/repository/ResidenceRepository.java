@@ -15,6 +15,10 @@ public class ResidenceRepository {
 
     private List<Residence> residenceData = new ArrayList<>();
 
+    public List<Residence> getListResidence () {
+        return residenceData;
+    }
+
     public void saveResidence (Residence residence) {
         this.residenceData.add(residence);
 

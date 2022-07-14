@@ -18,7 +18,11 @@ public interface IResidenceService {
 
     Residence read(String name);
 
-    public boolean verifyIfResidenceExists (String residenceName);
+//    public boolean verifyIfResidenceExists (String residenceName);
 
     public List <String> getSquareRooms(String residence);
+
+    public Double getTotalArea(String residenceName);
+
+    public Double getTotalPrice(String residenceName);
 }

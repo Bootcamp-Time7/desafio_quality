@@ -7,7 +7,9 @@ import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -63,6 +65,7 @@ public class ResidenceService implements IResidenceService {
     public List<String> getSquareRooms(String residence){
         String residencieRoom =null;
         List<String> roomSquareList = new ArrayList<>();
+        //TODO ARRUMAR PARA USAR O getByName, vai trazer somente uma residência
         List<Residence> residenceList = residenceRepository.getAllResidence();
         for(Residence r : residenceList){
             if(r.getResidenceName().equalsIgnoreCase(residence)){
@@ -75,10 +78,11 @@ public class ResidenceService implements IResidenceService {
         }
         return roomSquareList;
     }
-    @Override
-    public Residence calculateBiggestCommode(String residence) {
-       return this.read(residence);
+    public Room  calculateBiggestRoom(String residence) {
+        var listRooms = residenceRepository.getByName(residence).getListRooms();
 
+        return listRooms
+                .stream().max(Comparator.comparing(Room::SquareRoom)).get();
     }
 
 //

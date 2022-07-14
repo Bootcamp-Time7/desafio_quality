@@ -27,9 +27,8 @@ public class Room {
     @Size(max = 33, message = "O comprimento máximo permitido por cômodo é de 33 metros.")
     private double roomLength;
 
+    //todo fazer metodo da classe
     public static Double SquareRoom(Room room) {
-        Double roomSquare;
-        roomSquare= room.getRoomLength()*room.getRoomLength();
-        return roomSquare;
+        return  room.getRoomLength()*room.getRoomLength();
     }
 }

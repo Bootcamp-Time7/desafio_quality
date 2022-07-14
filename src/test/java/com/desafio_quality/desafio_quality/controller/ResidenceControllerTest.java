@@ -6,6 +6,8 @@ import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Comparator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,22 +33,22 @@ public class ResidenceControllerTest {
 
     @BeforeEach
     void setup() {
-//        BDDMockito.when(residenceService.calculateBiggestRoom(ArgumentMatchers.anyString()))
-//                .thenReturn(TestUtilsGenerator.getNewResidence());
+        BDDMockito.when(residenceService.calculateBiggestRoom(ArgumentMatchers.anyString()))
+                .thenReturn(TestUtilsGenerator.getNewRoom());
     }
 
     @Test
     void getResidenceByNameTest() {
-        var roomList= TestUtilsGenerator.getNewRoomList();
-        var residence= TestUtilsGenerator.getNewResidence();
-        var room = roomList
-                .stream().max(Comparator.comparing(Room::CalculateArea)).get();
 
-        ResponseEntity<Room> response = controller.calculateBiggestCommode(residence.getResidenceName());
-//
-//        verify(residenceService, atLeastOnce()).calculateBiggestRoom(residence.getResidenceName());
-//        assertThat(response.getBody().getResidenceName()).isEqualTo(residence.getResidenceName());
+        var room = TestUtilsGenerator.getNewRoom();
+
+        ResponseEntity<Room> response = controller.calculateBiggestCommode(room.getRoomName());
+
+        verify(residenceService, atLeastOnce()).calculateBiggestRoom(room.getRoomName());
+        assertThat(response.getBody().getRoomName()).isEqualTo(room.getRoomName());
     }
+
+
 
 
 }

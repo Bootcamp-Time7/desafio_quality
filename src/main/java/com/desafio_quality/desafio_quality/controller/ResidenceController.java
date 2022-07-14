@@ -29,4 +29,25 @@ public class ResidenceController {
       return ResponseEntity.ok(residenceService.getSquareRooms(residence));
 
     }
+
+    @GetMapping("/calcTotalArea/{residenceName}")
+    public ResponseEntity <Double> calculateTotalArea (@PathVariable String residenceName){
+        return ResponseEntity.ok(residenceService.getTotalArea(residenceName));
+    }
+
+    @GetMapping("/calcTotalPrice/{residenceName}")
+    public ResponseEntity <Double> totalPrice (@PathVariable String residenceName){
+        return ResponseEntity.ok(residenceService.getTotalPrice(residenceName));
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity <List<Residence>>  findAll (){
+
+        return ResponseEntity.ok(residenceService.findAll());
+    }
+
+    @GetMapping("/read")
+    public ResponseEntity <Residence> readResidence(@RequestParam String residenceName){
+        return  ResponseEntity.ok(residenceService.read(residenceName));
+    }
 }

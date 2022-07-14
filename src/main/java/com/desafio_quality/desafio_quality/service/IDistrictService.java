@@ -14,5 +14,6 @@ public interface IDistrictService {
     District create(District district);
 
     District read(String districtName);
+
     public boolean verifyIfDistrictExists (String districtName);
 }

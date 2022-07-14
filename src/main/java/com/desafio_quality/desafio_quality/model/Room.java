@@ -26,4 +26,10 @@ public class Room {
     @NotBlank(message = "O comprimento do cômodo não pode estar vazio")
     @Size(max = 33, message = "O comprimento máximo permitido por cômodo é de 33 metros.")
     private double roomLength;
+
+    public static Double SquareRoom(Room room) {
+        Double roomSquare;
+        roomSquare= room.getRoomLength()*room.getRoomLength();
+        return roomSquare;
+    }
 }

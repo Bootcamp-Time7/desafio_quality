@@ -13,14 +13,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Property {
+public class Residence {
     @NotBlank(message = "O nome da propriedade não pode estar vazio")
     @Pattern(regexp = "([A-Z]{1}[a-z]+\\s??)+", message = "O nome da propriedade deve começar com letra maiúscula")
     @Size(max = 30, message = "O comprimento do nome não pode exceder 30 caracteres.")
-    private String propertyName;
+    private String residenceName;
 
     @NotBlank (message = "O nome do bairro não pode estar vazio")
-    private District propertyDistrict;
+    private District residenceDistrict;
 
     @NotBlank (message = "A lista de cômodos não pode estar vazia")
     private List<@Valid Room> listRooms;

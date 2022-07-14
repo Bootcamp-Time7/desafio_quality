@@ -8,16 +8,12 @@ import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import javax.validation.Valid;
 import java.util.Comparator;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -61,7 +57,7 @@ public class ResidenceServiceTest {
         residence.setListRooms(roomList);
 
         var expectedBiggestRoom = roomList
-                .stream().max(Comparator.comparing(Room::SquareRoom)).get();
+                .stream().max(Comparator.comparing(Room::CalculateArea)).get();
 
         ResidenceService residenceService = new ResidenceService(residenceRepository, districtRepository);
 

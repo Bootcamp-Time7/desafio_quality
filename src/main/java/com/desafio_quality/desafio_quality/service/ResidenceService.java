@@ -4,10 +4,8 @@ import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -71,7 +69,7 @@ public class ResidenceService implements IResidenceService {
             if(r.getResidenceName().equalsIgnoreCase(residence)){
                 List<Room> roomList = r.getListRooms();
                 for(Room room : roomList){
-                  residencieRoom = "" + room.getRoomName() + ": " + Room.SquareRoom(room);
+                  residencieRoom = "" + room.getRoomName() + ": " + Room.CalculateArea(room);
                   roomSquareList.add(residencieRoom);
                 }
             }
@@ -82,7 +80,7 @@ public class ResidenceService implements IResidenceService {
         var listRooms = residenceRepository.getByName(residence).getListRooms();
 
         return listRooms
-                .stream().max(Comparator.comparing(Room::SquareRoom)).get();
+                .stream().max(Comparator.comparing(Room::CalculateArea)).get();
     }
 
 //

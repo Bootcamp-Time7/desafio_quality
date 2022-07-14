@@ -23,11 +23,14 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+
 public class ResidenceControllerTest {
+
     @InjectMocks
     private ResidenceController controller;
     @Mock
     IResidenceService residenceService;
+
     @BeforeEach
     void setup() {
         BDDMockito.when(residenceService.calculateBiggestCommode(ArgumentMatchers.anyString()))
@@ -43,4 +46,5 @@ public class ResidenceControllerTest {
         verify(residenceService, atLeastOnce()).calculateBiggestCommode(residence.getResidenceName());
         assertThat(response.getBody().getResidenceName()).isEqualTo(residence.getResidenceName());
     }
+
 }

@@ -8,8 +8,7 @@ class DesafioQualityApplicationTests {
 
     @Test
     void contextLoads() {
-        Object error = null;
-        error.equals(404);
+
     }
 
 }

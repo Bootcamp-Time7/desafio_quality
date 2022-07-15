@@ -25,7 +25,6 @@ public class Room {
     @DecimalMax(value = "33", message = "O comprimento máximo permitido por cômodo é de 33 metros.")
     private double roomLength;
 
-    //TODO fazer metodo da classe
     public static Double calculateArea(Room room) {
         return  room.getRoomLength()*room.getRoomWidth();
     }

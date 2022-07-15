@@ -7,13 +7,11 @@ import java.util.List;
 
 public interface IDistrictService {
 
-    Double residenceTotalValue ();
-
     List<District> findAll();
 
-    District create(District district);
+    District create(District district) throws Exception;
 
     District read(String districtName);
 
-    public boolean verifyIfDistrictExists (String districtName);
+    boolean isDistrictRegistered(String districtName);
 }

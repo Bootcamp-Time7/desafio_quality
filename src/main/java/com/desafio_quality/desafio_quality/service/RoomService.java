@@ -1,18 +1,17 @@
 package com.desafio_quality.desafio_quality.service;
 
-
-import com.desafio_quality.desafio_quality.repository.DistrictRepository;
+import com.desafio_quality.desafio_quality.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DistrictServiceImp implements IDistrictService {
+public class RoomService implements IRoomService{
 
     @Autowired
-    private DistrictRepository districtRepository;
+    private RoomRepository roomRepository;
 
     @Override
-    public Double propertyTotalValue() {
+    public Double SquareRoom() {
         return null;
     }
 }

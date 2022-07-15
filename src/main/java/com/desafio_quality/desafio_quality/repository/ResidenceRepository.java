@@ -39,6 +39,7 @@ public class ResidenceRepository {
                 tempResidence = p;
             }
         }
+
         return tempResidence;
     }
 

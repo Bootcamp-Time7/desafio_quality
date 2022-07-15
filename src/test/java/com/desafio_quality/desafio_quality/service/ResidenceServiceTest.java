@@ -1,5 +1,6 @@
 package com.desafio_quality.desafio_quality.service;
 
+import com.desafio_quality.desafio_quality.excepiton.ElementAlreadyExistsException;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.model.RoomDto;
@@ -10,8 +11,11 @@ import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.engine.TestEngine;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
@@ -41,35 +45,22 @@ public class ResidenceServiceTest {
     DistrictRepository districtRepository;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(TestUtilsGenerator.getNewResidence());
         BDDMockito.when(residenceRepository.getAllResidence())
                 .thenReturn(TestUtilsGenerator.getNewResidenceList());
         BDDMockito.doNothing().when(residenceRepository)
-        .saveResidence(ArgumentMatchers.any(Residence.class));        
+                .saveResidence(ArgumentMatchers.any(Residence.class));
     }
 
     @Test
-    void read_returnResidence_whenResidenceExist() {
-        Residence residence = TestUtilsGenerator.getNewResidence();
-
-        when(residenceRepository.getByName(anyString())).thenReturn(residence);
-
-        ResidenceService residenceService = new ResidenceService(residenceRepository, districtRepository);
-
-        Residence residencetFound = residenceService.read(residence.getResidenceName());
-
-        assertThat(residencetFound.getResidenceName()).isEqualTo(residence.getResidenceName());
-        verify(residenceRepository, atLeastOnce()).getByName(residence.getResidenceName());
-    }
-
-    @Test
-    void calculateBiggestRoom(){
+    @DisplayName("calculateBiggestRoom")
+    void calculateBiggestRoom() {
         Residence residence = TestUtilsGenerator.getNewResidence();
         when(residenceRepository.getByName(residence.getResidenceName())).thenReturn(residence);
 
-        var roomList= TestUtilsGenerator.getNewRoomList();
+        var roomList = TestUtilsGenerator.getNewRoomList();
         residence.setListRooms(roomList);
 
         var expectedBiggestRoom = roomList
@@ -77,14 +68,15 @@ public class ResidenceServiceTest {
 
         ResidenceService residenceService = new ResidenceService(residenceRepository, districtRepository);
 
-         Room biggestRoom = residenceService.calculateBiggestRoom(residence.getResidenceName());
+        Room biggestRoom = residenceService.calculateBiggestRoom(residence.getResidenceName());
 
-         assertThat(biggestRoom).isEqualTo(expectedBiggestRoom);
-         verify(residenceRepository).getByName(residence.getResidenceName());
+        assertThat(biggestRoom).isEqualTo(expectedBiggestRoom);
+        verify(residenceRepository).getByName(residence.getResidenceName());
     }
 
 
     @Test
+    @DisplayName("findAll")
     void findAll_returnResidenceList_whenResidenceListExists() {
         List<Residence> residenceData = TestUtilsGenerator.getNewResidenceList();
 
@@ -97,20 +89,41 @@ public class ResidenceServiceTest {
     }
 
     @Test
-    void create() {
-      Residence residenceTest = TestUtilsGenerator.getNewResidence();
-     Assertions.assertThatCode(() -> {
-        residenceService.create(residenceTest);
-     }).doesNotThrowAnyException();
-     verify(residenceRepository, atLeastOnce()).saveResidence(residenceTest); 
+    @DisplayName("create")
+    void create_doesNotThrowAnException_whenNewResidence() {
+        BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
+                .thenReturn(null);
+        Residence newResidence = TestUtilsGenerator.getNewResidence();
+        Assertions.assertThatCode(() -> {
+            residenceService.create(newResidence);
+        }).doesNotThrowAnyException();
+
+        verify(residenceRepository, atLeastOnce()).saveResidence(newResidence);
+    }
+
+    @Test
+    @DisplayName("create")
+    void create_doesThrowAnException_whenResidenceExists() {
+        Residence residenceTest = TestUtilsGenerator.getNewResidence();
+        Assertions.assertThatThrownBy(() -> residenceService.create(residenceTest))
+                .isInstanceOf(ElementAlreadyExistsException.class);
     }
 
 
     @Test
-    void read() {
+    @DisplayName("read")
+    void read_returnResidence_whenResidenceExists() {
+        Residence newResidence = TestUtilsGenerator.getNewResidence();
+
+        Residence foundResidence = residenceService.read(newResidence.getResidenceName());
+
+        Assertions.assertThat(foundResidence).isNotNull();
+        Assertions.assertThat(foundResidence.getResidenceName()).isEqualTo(newResidence.getResidenceName());
+        Assertions.assertThat(foundResidence.getListRooms().size()).isEqualTo(3);
     }
 
     @Test
+    @DisplayName("getSquareRoom")
     void getSquareRooms_returnRoomDto_whenResidenceExists() {
         Residence newResidence =TestUtilsGenerator.getNewResidence();
 
@@ -125,6 +138,7 @@ public class ResidenceServiceTest {
     }
 
     @Test
+    @DisplayName("getTotalArea")
     void getTotalArea_returnDouble_whenResidenceExists() {
         Residence newResidence =TestUtilsGenerator.getNewResidence();
         Double newTotalArea = TestUtilsGenerator.getTotalArea();
@@ -138,6 +152,7 @@ public class ResidenceServiceTest {
     }
 
     @Test
+    @DisplayName("getTotalPrice")
     void getTotalPrice_returnDouble_WhenResidenceExists() {
         Residence newResidence = TestUtilsGenerator.getNewResidence();
         Double newTotalPrice = TestUtilsGenerator.getTotalPrice();

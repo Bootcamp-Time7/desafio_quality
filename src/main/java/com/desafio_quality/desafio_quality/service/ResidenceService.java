@@ -1,5 +1,7 @@
 package com.desafio_quality.desafio_quality.service;
 
+import com.desafio_quality.desafio_quality.excepiton.ElementAlreadyExistsException;
+import com.desafio_quality.desafio_quality.handler.HandlerException;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.model.RoomDto;
@@ -30,38 +32,19 @@ public class ResidenceService implements IResidenceService {
 
     @Override
     public void create(Residence residence) {
-        List<Residence> tempResidenceList = findAll();
-        boolean found = false;
-        for (Residence r : tempResidenceList) {
-            if (r.getResidenceName().equalsIgnoreCase(residence.getResidenceName())) {
-                found = true;
-                System.out.print("esse elemento ja existe"); // TODO Throw New Exception
-            }
-        }
-        if (!found) {
+        if (residenceRepository.getByName(residence.getResidenceName()) == null) {
             residenceRepository.saveResidence(residence);
+        } else {
+            throw new ElementAlreadyExistsException();
         }
     }
 
-    public Residence returnResidence(Residence residence) {
-        return residence;
-    }
 
     @Override
     public Residence read(String residenceName) {
-
         return residenceRepository.getByName(residenceName);
     }
 
-//    public boolean verifyIfResidenceExists (String residenceName){
-//        for(Residence r :residenceRepository.getListResidence()){
-//            if (residenceName.equals(r.getResidenceName())){
-//                System.out.println("erro");
-//                //TODO throw new
-//            }
-//        }
-//        return false;
-//    }
 
     public List<RoomDto> getSquareRooms(String residence) {
         List<RoomDto> roomSquareList = new ArrayList<>();
@@ -70,7 +53,7 @@ public class ResidenceService implements IResidenceService {
         for (Room room : roomList) {
             RoomDto newRoomDto = new RoomDto();
             newRoomDto.setNameRoomDto(room.getRoomName());
-            newRoomDto.setSquare(room.getRoomWidth()* room.getRoomWidth());
+            newRoomDto.setSquare(room.getRoomWidth() * room.getRoomWidth());
             roomSquareList.add(newRoomDto);
 
         }
@@ -78,12 +61,12 @@ public class ResidenceService implements IResidenceService {
     }
 
     public Double getTotalArea(String residence) {
-        Double totalArea =0.0;
+        Double totalArea = 0.0;
         Residence residenceFound = residenceRepository.getByName(residence);
         List<Room> roomList = residenceFound.getListRooms();
         for (Room room : roomList) {
             Double squareRoom = Room.calculateArea(room);
-             totalArea =  totalArea + squareRoom;
+            totalArea = totalArea + squareRoom;
         }
         return totalArea;
     }
@@ -101,19 +84,6 @@ public class ResidenceService implements IResidenceService {
     }
 
 
-    //    List<Residence> tempPropertyList = residenceRepository.getAllResidence();
-//    Residence tempResidence = new Residence();
-//        for(Residence residenceIterator:tempPropertyList){
-//        if (residenceIterator.getResidenceName().equals(residenceName)){
-//            tempResidence = residenceIterator;
-//        }
-//    }
-//    List<Room> tempRoomList = tempResidence.getListRooms();
-//    double totalArea = 0.0;
-//
-//        for (Room roomIterator:tempRoomList){
-//        totalArea +=  roomIterator.getRoomLength()*roomIterator.getRoomWidth();
-//    }
     public Room calculateBiggestRoom(String residence) {
         var listRooms = residenceRepository.getByName(residence).getListRooms();
 
@@ -121,8 +91,4 @@ public class ResidenceService implements IResidenceService {
                 .stream().max(Comparator.comparing(Room::calculateArea)).get();
     }
 
-//
-//    public boolean verifyIfResidenceExists (String residenceName){
-//        if (residenceName.equals())
-//    }
 }

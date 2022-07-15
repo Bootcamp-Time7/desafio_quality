@@ -1,5 +1,6 @@
 package com.desafio_quality.desafio_quality.controller;
 
+import com.desafio_quality.desafio_quality.handler.HandlerException;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.model.RoomDto;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,14 +21,14 @@ public class ResidenceController {
 
 
     @PostMapping("/registerResidence")
-    public ResponseEntity<Residence> registerResidence (@RequestBody Residence residence){
+    public ResponseEntity<Residence> registerResidence (@RequestBody @Valid Residence residence) throws HandlerException {
 
         residenceService.create(residence);
         return ResponseEntity.ok(residence);
     }
 
     @GetMapping("/calculateBiggestCommode/{residenceName}")
-    public ResponseEntity<Room> calculateBiggestCommode(@PathVariable  String residenceName) {
+    public ResponseEntity<Room> calculateBiggestCommode(@PathVariable String residenceName) {
         return ResponseEntity.ok(residenceService.calculateBiggestRoom(residenceName));
     }
 

@@ -129,7 +129,15 @@ public class ResidenceServiceTest {
     }
 
     @Test
-    void getTotalPrice() {
+    void getTotalPrice_returnDouble_WhenResidenceExists() {
+        Residence newResidence = TestUtilsGenerator.getNewResidence();
+        Double newTotalPrice = TestUtilsGenerator.getTotalPrice();
+
+        Double foundTotalPrice = residenceService.getTotalPrice(newResidence.getResidenceName());
+
+        Assertions.assertThat(foundTotalPrice).isNotNull();
+        Assertions.assertThat(foundTotalPrice).isEqualTo(newTotalPrice);
+        Assertions.assertThat(foundTotalPrice).isPositive();
     }
 
     @Test

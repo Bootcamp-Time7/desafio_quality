@@ -96,14 +96,13 @@ public class ResidenceService implements IResidenceService {
 
     public Double getTotalPrice(String residence) {
         double totalArea = 0.0;
-        Residence tempResidence = new Residence();
         Residence residenceFound = residenceRepository.getByName(residence);
         List<Room> roomList = residenceFound.getListRooms();
         for (Room room : roomList) {
             Double squareRoom = Room.calculateArea(room);
             totalArea = totalArea + squareRoom;
         }
-        return totalArea * tempResidence.getResidenceDistrict().getValuePerSquare();
+        return totalArea * residenceFound.getResidenceDistrict().getValuePerSquare();
     }
 
 

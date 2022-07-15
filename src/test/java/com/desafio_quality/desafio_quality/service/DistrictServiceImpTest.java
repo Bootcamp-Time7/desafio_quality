@@ -1,5 +1,6 @@
 package com.desafio_quality.desafio_quality.service;
 
+import com.desafio_quality.desafio_quality.excepiton.ElementAlreadyExistsException;
 import com.desafio_quality.desafio_quality.model.District;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.repository.DistrictRepository;
@@ -88,7 +89,7 @@ public class DistrictServiceImpTest {
 
         DistrictServiceImp districtService = new DistrictServiceImp(districtRepository);
 
-        Assertions.assertThrows(Exception.class, () -> districtService.create(newDistrict));
+        Assertions.assertThrows(ElementAlreadyExistsException.class, () -> districtService.create(newDistrict));
 
     }
 }

@@ -57,7 +57,7 @@ public class ResidenceService implements IResidenceService {
         for (Room room : roomList) {
             RoomDto newRoomDto = new RoomDto();
             newRoomDto.setNameRoomDto(room.getRoomName());
-            newRoomDto.setSquare(room.getRoomWidth() * room.getRoomWidth());
+            newRoomDto.setSquare(room.getRoomWidth() * room.getRoomLength());
             roomSquareList.add(newRoomDto);
 
         }

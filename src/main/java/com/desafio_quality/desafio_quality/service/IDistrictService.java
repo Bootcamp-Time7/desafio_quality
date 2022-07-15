@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface IDistrictService {
 
-    Double residenceTotalValue ();
-
     List<District> findAll();
 
     District create(District district);

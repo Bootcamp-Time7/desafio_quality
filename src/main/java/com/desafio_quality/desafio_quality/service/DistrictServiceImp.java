@@ -12,13 +12,13 @@ import java.util.List;
 @Service
 public class DistrictServiceImp implements IDistrictService {
 
-    @Autowired
+
     private DistrictRepository districtRepository;
 
-    @Override
-    public Double residenceTotalValue() {
-        return null;
+    public DistrictServiceImp(DistrictRepository districtRepository) {
+        this.districtRepository = districtRepository;
     }
+
 
     @Override
     public List<District> findAll() {

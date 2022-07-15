@@ -21,7 +21,7 @@ public class ResidenceController {
 
 
     @PostMapping("/registerResidence")
-    public ResponseEntity<Residence> registerResidence (@RequestBody Residence residence) throws HandlerException {
+    public ResponseEntity<Residence> registerResidence (@RequestBody @Valid Residence residence) throws HandlerException {
 
         residenceService.create(residence);
         return ResponseEntity.ok(residence);

@@ -20,7 +20,7 @@ public class DistrictController {
     private IDistrictService districtService;
 
     @PostMapping ("/registerDistrict")
-    public ResponseEntity<District> registerDistrict (@RequestBody District district) throws HandlerException {
+    public ResponseEntity<District> registerDistrict (@RequestBody @Valid District district) throws HandlerException {
 
         districtService.create(district);
         return ResponseEntity.ok(district);

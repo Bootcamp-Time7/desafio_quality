@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @Builder
@@ -17,11 +15,12 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class District {
 
-    @NotBlank (message = "O bairro não pode estar vazio")
+    @NotEmpty(message = "O bairro não pode estar vazio")
     @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
+    @Pattern(regexp = "([A-Z]{1}[a-z]+\\s??)+", message = "O nome do bairro deve começar com letra maiúscula")
     private String name;
 
-    @NotBlank (message = "O valor do metro quadrado no bairo não pode estar vazio")
+    @NotNull(message = "O valor do metro quadrado no bairo não pode estar vazio")
     @Digits(integer = 13, fraction = 2)
     private double valuePerSquare;
 }

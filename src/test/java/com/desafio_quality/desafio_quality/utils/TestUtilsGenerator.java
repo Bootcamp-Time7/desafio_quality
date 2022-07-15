@@ -107,4 +107,13 @@ public class TestUtilsGenerator {
        return totalAreaRooms;
     }
 
+    public static Double getTotalPrice(){
+
+        Residence residence = getNewResidence();
+
+        Double totalAreaRooms = getTotalArea();
+
+        return  totalAreaRooms* residence.getResidenceDistrict().getValuePerSquare();
+    }
+
 }

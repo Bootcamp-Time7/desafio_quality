@@ -26,13 +26,12 @@ public class DistrictServiceImp implements IDistrictService {
     }
 
     @Override
-    public void create(District district) throws Exception {
+    public District create(District district) throws Exception {
         var districtFound = districtRepository.getByName(district.getName());
         if (districtFound != null) {
             throw new Exception("Esse Bairro já existe");
         }
-        districtRepository.saveDistrict(district);
-        this.returnDistrict(district);
+        return  districtRepository.saveDistrict(district);
     }
 
     public District returnDistrict(District district) {

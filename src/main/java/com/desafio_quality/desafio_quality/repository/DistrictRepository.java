@@ -20,8 +20,9 @@ public class DistrictRepository {
         return this.districtData;
     }
 
-    public void saveDistrict (District district) {
+    public District saveDistrict (District district) {
         this.districtData.add(district);
+      return district;
     }
 
 

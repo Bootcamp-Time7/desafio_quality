@@ -9,6 +9,8 @@ import org.assertj.core.api.ListAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -39,7 +41,8 @@ public class DistrictServiceImpTest {
 
     @BeforeEach
     public void setup() {
-
+        BDDMockito.when(districtRepository.saveDistrict(ArgumentMatchers.any(District.class)))
+                .thenReturn(TestUtilsGenerator.getNewDistrict());
     }
 
     @Test
@@ -71,8 +74,15 @@ public class DistrictServiceImpTest {
     }
 
     @Test
-    void create_whenDistrictNotExist(){
+    void create_whenDistrictNotExistInRepository() throws Exception {
+        District newDistrict = TestUtilsGenerator.getNewDistrict();
 
+        DistrictServiceImp districtService = new DistrictServiceImp(districtRepository);
+        var savedDistrict = districtService.create(newDistrict);
+
+        assertThat(savedDistrict.getName()).isEqualTo(savedDistrict.getName());
+        assertThat(savedDistrict.getValuePerSquare()).isEqualTo(savedDistrict.getValuePerSquare());
+        verify(districtRepository, atLeastOnce()).saveDistrict(newDistrict);
 
     }
 }

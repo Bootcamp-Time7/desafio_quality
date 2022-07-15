@@ -1,7 +1,6 @@
 package com.desafio_quality.desafio_quality.service;
 
 import com.desafio_quality.desafio_quality.excepiton.ElementAlreadyExistsException;
-import com.desafio_quality.desafio_quality.handler.HandlerException;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.model.RoomDto;

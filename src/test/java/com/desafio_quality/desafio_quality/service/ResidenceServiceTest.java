@@ -1,6 +1,7 @@
 package com.desafio_quality.desafio_quality.service;
 
 import com.desafio_quality.desafio_quality.excepiton.ElementAlreadyExistsException;
+import com.desafio_quality.desafio_quality.model.District;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
 import com.desafio_quality.desafio_quality.model.RoomDto;
@@ -87,15 +88,36 @@ public class ResidenceServiceTest {
 
     @Test
     @DisplayName("create")
+    void create_doesNotThrowAnException_whenNewResidenceAndNewDistric() {
+        BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
+                .thenReturn(null);
+        BDDMockito.when(districtRepository.getByName(ArgumentMatchers.anyString()))
+                .thenReturn(null);
+        Residence newResidence = TestUtilsGenerator.getNewResidence();
+        District newDistrict = newResidence.getResidenceDistrict();
+        Assertions.assertThatCode(() -> {
+            residenceService.create(newResidence);
+        }).doesNotThrowAnyException();
+
+        verify(residenceRepository, atLeastOnce()).saveResidence(newResidence);
+        verify(districtRepository, atLeastOnce()).saveDistrict(newDistrict);
+    }
+
+    @Test
+    @DisplayName("create")
     void create_doesNotThrowAnException_whenNewResidence() {
         BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(null);
+        BDDMockito.when(districtRepository.getByName(ArgumentMatchers.anyString()))
+                .thenReturn(TestUtilsGenerator.getNewDistrict());
+
         Residence newResidence = TestUtilsGenerator.getNewResidence();
         Assertions.assertThatCode(() -> {
             residenceService.create(newResidence);
         }).doesNotThrowAnyException();
 
         verify(residenceRepository, atLeastOnce()).saveResidence(newResidence);
+        verify(districtRepository, never()).saveDistrict(newResidence.getResidenceDistrict());
     }
 
     @Test

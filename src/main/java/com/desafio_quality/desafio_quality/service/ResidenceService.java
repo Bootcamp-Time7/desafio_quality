@@ -32,11 +32,15 @@ public class ResidenceService implements IResidenceService {
 
     @Override
     public void create(Residence residence) {
-        if (residenceRepository.getByName(residence.getResidenceName()) == null) {
+        if (residenceRepository.getByName(residence.getResidenceName()) == null && districtRepository.getByName(residence.getResidenceDistrict().getName()) == null) {
             residenceRepository.saveResidence(residence);
-        } else {
+            districtRepository.saveDistrict(residence.getResidenceDistrict());
+        } else if (residenceRepository.getByName(residence.getResidenceName()) == null && districtRepository.getByName(residence.getResidenceDistrict().getName()) != null){
+            residenceRepository.saveResidence(residence);
+        }else {
             throw new ElementAlreadyExistsException();
         }
+
     }
 
 

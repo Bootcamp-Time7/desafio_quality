@@ -93,6 +93,36 @@ public class TestUtilsGenerator {
                 .listRooms(roomList)
                 .build();
     }
+    public static List<Residence> getNewResidenceList(){
+        Residence residence1 =
+                Residence.builder()
+                        .residenceName("casa1")
+                        .residenceDistrict(getNewDistrict())
+                        .listRooms(getNewRoomList())
+                        .build();
+
+        Residence residence2 =
+                Residence.builder()
+                        .residenceName("casa2")
+                        .residenceDistrict(getNewDistrict())
+                        .listRooms(getNewRoomList())
+                        .build();
+
+        Residence residence3 =
+                Residence.builder()
+                        .residenceName("casa3")
+                        .residenceDistrict(getNewDistrict())
+                        .listRooms(getNewRoomList())
+                        .build();
+
+        List<Residence> residenceList = new ArrayList<>();
+        residenceList.add(residence1);
+        residenceList.add(residence2);
+        residenceList.add(residence3);
+
+
+        return residenceList;
+    }
 
     public static Double getTotalArea(){
 

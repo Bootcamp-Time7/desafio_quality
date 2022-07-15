@@ -44,6 +44,8 @@ public class ResidenceServiceTest {
     public void setup(){
         BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(TestUtilsGenerator.getNewResidence());
+        BDDMockito.when(residenceRepository.getAllResidence())
+                .thenReturn(TestUtilsGenerator.getNewResidenceList());
     }
 
     @Test
@@ -81,21 +83,21 @@ public class ResidenceServiceTest {
 
 
     @Test
-    void squareResidence() {
+    void findAll_returnResidenceList_whenResidenceListExists() {
+        List<Residence> residenceData = TestUtilsGenerator.getNewResidenceList();
 
-    }
+        List<Residence> foundResidenceList = residenceService.findAll();
 
-    @Test
-    void findAll() {
+        Assertions.assertThat(foundResidenceList).isNotNull();
+        Assertions.assertThat(foundResidenceList.size()).isEqualTo(3);
+        Assertions.assertThat(foundResidenceList.get(0).getResidenceName()).isEqualTo(residenceData.get(0).getResidenceName());
+        Assertions.assertThat(foundResidenceList).isEqualTo(residenceData);
     }
 
     @Test
     void create() {
     }
 
-    @Test
-    void returnResidence() {
-    }
 
     @Test
     void read() {

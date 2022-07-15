@@ -24,11 +24,6 @@ public class ResidenceService implements IResidenceService {
     }
 
     @Override
-    public Double squareResidence(Residence residence) {
-        return null;
-    }
-
-    @Override
     public List<Residence> findAll() {
         return residenceRepository.getAllResidence();
     }

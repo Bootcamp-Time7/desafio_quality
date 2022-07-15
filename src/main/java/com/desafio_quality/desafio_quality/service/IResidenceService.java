@@ -11,15 +11,11 @@ public interface IResidenceService {
 
     Room calculateBiggestRoom(String residence);
 
-    Double squareResidence (Residence residence); //soma das areas de todos os comodos
-
     List<Residence> findAll();
 
     void create(Residence residence);
 
     Residence read(String name);
-
-//    public boolean verifyIfResidenceExists (String residenceName);
 
     public List <RoomDto> getSquareRooms(String residence);
 

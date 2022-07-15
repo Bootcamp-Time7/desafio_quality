@@ -25,7 +25,7 @@ public class DistrictServiceImp implements IDistrictService {
     }
 
     @Override
-    public District create(District district) throws Exception {
+    public District create(District district) {
     if (isDistrictRegistered(district.getName())) {
             throw new ElementAlreadyExistsException();
         }

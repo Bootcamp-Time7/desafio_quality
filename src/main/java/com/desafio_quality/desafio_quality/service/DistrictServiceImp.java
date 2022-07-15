@@ -1,6 +1,7 @@
 package com.desafio_quality.desafio_quality.service;
 
 
+import com.desafio_quality.desafio_quality.excepiton.ElementAlreadyExistsException;
 import com.desafio_quality.desafio_quality.model.District;
 import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class DistrictServiceImp implements IDistrictService {
     @Override
     public District create(District district) throws Exception {
     if (isDistrictRegistered(district.getName())) {
-            throw new Exception("Esse Bairro já existe");
+            throw new ElementAlreadyExistsException();
         }
         return  districtRepository.saveDistrict(district);
     }

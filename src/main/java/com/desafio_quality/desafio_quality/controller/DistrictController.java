@@ -1,5 +1,6 @@
 package com.desafio_quality.desafio_quality.controller;
 
+import com.desafio_quality.desafio_quality.handler.HandlerException;
 import com.desafio_quality.desafio_quality.model.District;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.service.IDistrictService;
@@ -18,7 +19,7 @@ public class DistrictController {
     private IDistrictService districtService;
 
     @PostMapping ("/registerDistrict")
-    public ResponseEntity<District> registerDistrict (@RequestBody District district) throws Exception {
+    public ResponseEntity<District> registerDistrict (@RequestBody District district) throws HandlerException {
 
         districtService.create(district);
         return ResponseEntity.ok(district);

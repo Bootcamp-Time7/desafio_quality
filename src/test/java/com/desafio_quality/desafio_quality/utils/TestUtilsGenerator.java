@@ -94,4 +94,17 @@ public class TestUtilsGenerator {
                 .build();
     }
 
+    public static Double getTotalArea(){
+
+        Residence residence = getNewResidence();
+
+       double squareRoom0=  residence.getListRooms().get(0).getRoomWidth()*residence.getListRooms().get(0).getRoomLength();
+       double squareRoom1=  residence.getListRooms().get(1).getRoomWidth()*residence.getListRooms().get(1).getRoomLength();
+       double squareRoom2=  residence.getListRooms().get(2).getRoomWidth()*residence.getListRooms().get(2).getRoomLength();
+
+       double totalAreaRooms = squareRoom0 + squareRoom1 + squareRoom2;
+
+       return totalAreaRooms;
+    }
+
 }

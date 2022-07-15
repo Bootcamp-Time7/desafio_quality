@@ -7,6 +7,7 @@ import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
 import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -115,7 +116,15 @@ public class ResidenceServiceTest {
     }
 
     @Test
-    void getTotalArea() {
+    void getTotalArea_returnDouble_whenResidenceExists() {
+        Residence newResidence =TestUtilsGenerator.getNewResidence();
+        Double newTotalArea = TestUtilsGenerator.getTotalArea();
+
+        Double foundTotalArea = residenceService.getTotalArea(newResidence.getResidenceName());
+
+        Assertions.assertThat(foundTotalArea).isNotNull();
+        Assertions.assertThat(foundTotalArea).isEqualTo(newTotalArea);
+        Assertions.assertThat(foundTotalArea).isPositive();
 
     }
 

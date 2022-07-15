@@ -8,14 +8,11 @@ import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
 import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.engine.TestEngine;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
@@ -45,7 +42,7 @@ public class ResidenceServiceTest {
     DistrictRepository districtRepository;
 
     @BeforeEach
-    public void setup() {
+    public void setup(){
         BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(TestUtilsGenerator.getNewResidence());
         BDDMockito.when(residenceRepository.getAllResidence())
@@ -109,7 +106,6 @@ public class ResidenceServiceTest {
                 .isInstanceOf(ElementAlreadyExistsException.class);
     }
 
-
     @Test
     @DisplayName("read")
     void read_returnResidence_whenResidenceExists() {
@@ -164,7 +160,4 @@ public class ResidenceServiceTest {
         Assertions.assertThat(foundTotalPrice).isPositive();
     }
 
-    @Test
-    void testCalculateBiggestRoom() {
-    }
 }

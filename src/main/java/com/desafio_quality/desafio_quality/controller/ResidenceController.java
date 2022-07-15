@@ -2,6 +2,7 @@ package com.desafio_quality.desafio_quality.controller;
 
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
+import com.desafio_quality.desafio_quality.model.RoomDto;
 import com.desafio_quality.desafio_quality.service.IResidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class ResidenceController {
     }
 
     @GetMapping("/roomSquare/{residence}")
-    public ResponseEntity<List<String>> getSquareRoom(@PathVariable String residence){
+    public ResponseEntity<List<RoomDto>> getSquareRoom(@PathVariable String residence){
 
       return ResponseEntity.ok(residenceService.getSquareRooms(residence));
 

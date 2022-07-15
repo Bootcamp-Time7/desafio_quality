@@ -3,6 +3,7 @@ package com.desafio_quality.desafio_quality.utils;
 import com.desafio_quality.desafio_quality.model.District;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
+import com.desafio_quality.desafio_quality.model.RoomDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,30 @@ public class TestUtilsGenerator {
         return roomList;
     }
 
+    public static List<RoomDto> getNewRoomDtoList(){
+
+        RoomDto room1 = new RoomDto("Quarto", 4.0);
+        RoomDto room2 = new RoomDto("Quarto", 4.0);
+        RoomDto room3 = new RoomDto("Quarto", 4.0);
+
+        List<RoomDto> roomDtoList = new ArrayList<>();
+        roomDtoList.add(room1);
+        roomDtoList.add(room2);
+        roomDtoList.add(room3);
+
+        return roomDtoList;
+    }
+
+    public static RoomDto getNewRoomDto(){
+
+       return  RoomDto.builder()
+               .nameRoomDto("room")
+               .square(2)
+               .build();
+
+    }
+
+
     public static District getNewDistrict(){
         return District.builder()
                 .name("Liberdade")
@@ -67,6 +92,28 @@ public class TestUtilsGenerator {
                 .residenceDistrict(district)
                 .listRooms(roomList)
                 .build();
+    }
+
+    public static Double getTotalArea(){
+
+        Residence residence = getNewResidence();
+
+       double squareRoom0=  residence.getListRooms().get(0).getRoomWidth()*residence.getListRooms().get(0).getRoomLength();
+       double squareRoom1=  residence.getListRooms().get(1).getRoomWidth()*residence.getListRooms().get(1).getRoomLength();
+       double squareRoom2=  residence.getListRooms().get(2).getRoomWidth()*residence.getListRooms().get(2).getRoomLength();
+
+       double totalAreaRooms = squareRoom0 + squareRoom1 + squareRoom2;
+
+       return totalAreaRooms;
+    }
+
+    public static Double getTotalPrice(){
+
+        Residence residence = getNewResidence();
+
+        Double totalAreaRooms = getTotalArea();
+
+        return  totalAreaRooms* residence.getResidenceDistrict().getValuePerSquare();
     }
 
 }

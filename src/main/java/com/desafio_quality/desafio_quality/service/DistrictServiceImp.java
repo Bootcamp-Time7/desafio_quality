@@ -26,22 +26,16 @@ public class DistrictServiceImp implements IDistrictService {
     }
 
     @Override
-    public District create(District district) {
-        List<District> tempDistrictList = findAll();
-        boolean found = false;
-        for (District r : tempDistrictList){
-            if(r.getName().equalsIgnoreCase(district.getName())) {
-                found = true;
-                System.out.print("esse elemento ja existe"); // TODO Throw New Exception
-            }
+    public District create(District district) throws Exception {
+        var districtFound = districtRepository.getByName(district.getName());
+        if (districtFound != null) {
+            throw new Exception("Esse Bairro já existe");
         }
-        if (!found){
-            districtRepository.saveDistrict(district);
-        }
+        districtRepository.saveDistrict(district);
         return this.returnDistrict(district);
     }
 
-    public District returnDistrict (District district) {
+    public District returnDistrict(District district) {
         return district;
     }
 
@@ -51,10 +45,10 @@ public class DistrictServiceImp implements IDistrictService {
     }
 
 
-    public boolean verifyIfDistrictExists (String districtName){
+    public boolean verifyIfDistrictExists(String districtName) {
 
-        for(District d :districtRepository.getAllDistrict()){
-            if (districtName.equals(d.getName())){
+        for (District d : districtRepository.getAllDistrict()) {
+            if (districtName.equals(d.getName())) {
 
                 System.out.println("erro");
                 // TODO throw new Exception("erro")

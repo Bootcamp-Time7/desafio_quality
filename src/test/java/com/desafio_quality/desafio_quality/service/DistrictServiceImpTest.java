@@ -60,11 +60,18 @@ public class DistrictServiceImpTest {
     void findAll_returnAllDistricts() {
         District district = TestUtilsGenerator.getNewDistrict();
         List<District> districtListtList = List.of(district);
+
         when(districtRepository.getAllDistrict()).thenReturn(districtListtList);
         DistrictServiceImp districtService = new DistrictServiceImp(districtRepository);
+
         var districtsFound = districtService.findAll();
+
         assertThat(districtsFound).isEqualTo(districtListtList);
         verify(districtRepository).getAllDistrict();
+    }
+
+    @Test
+    void create_whenDistrictNotExist(){
 
 
     }

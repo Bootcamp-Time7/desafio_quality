@@ -9,7 +9,7 @@ public interface IDistrictService {
 
     List<District> findAll();
 
-    District create(District district) throws Exception;
+    void create(District district) throws Exception;
 
     District read(String districtName);
 

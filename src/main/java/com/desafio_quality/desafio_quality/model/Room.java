@@ -28,7 +28,7 @@ public class Room {
     private double roomLength;
 
     //TODO fazer metodo da classe
-    public static Double CalculateArea(Room room) {
+    public static Double calculateArea(Room room) {
         return  room.getRoomLength()*room.getRoomWidth();
     }
 }

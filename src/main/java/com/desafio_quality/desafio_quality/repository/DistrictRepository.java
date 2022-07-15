@@ -15,8 +15,9 @@ public class DistrictRepository {
 
     private List<District> districtData = new ArrayList<>();
 
-    public List<District> getListDistrict () {
-        return districtData;
+    public List<District> getAllDistrict (){
+
+        return this.districtData;
     }
 
     public District saveDistrict (District district) {
@@ -24,10 +25,7 @@ public class DistrictRepository {
         return null;
     }
 
-    public List<District> getAllDistrict (){
 
-        return this.districtData;
-    }
 
 
     public District getByName (String districtName) {

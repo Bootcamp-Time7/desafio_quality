@@ -3,6 +3,7 @@ package com.desafio_quality.desafio_quality.utils;
 import com.desafio_quality.desafio_quality.model.District;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
+import com.desafio_quality.desafio_quality.model.RoomDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,30 @@ public class TestUtilsGenerator {
 
         return roomList;
     }
+
+    public static List<RoomDto> getNewRoomDtoList(){
+
+        RoomDto room1 = new RoomDto("Quarto", 4.0);
+        RoomDto room2 = new RoomDto("Quarto", 4.0);
+        RoomDto room3 = new RoomDto("Quarto", 4.0);
+
+        List<RoomDto> roomDtoList = new ArrayList<>();
+        roomDtoList.add(room1);
+        roomDtoList.add(room2);
+        roomDtoList.add(room3);
+
+        return roomDtoList;
+    }
+
+    public static RoomDto getNewRoomDto(){
+
+       return  RoomDto.builder()
+               .nameRoomDto("room")
+               .square(2)
+               .build();
+
+    }
+
 
     public static District getNewDistrict(){
         return District.builder()

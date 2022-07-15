@@ -3,6 +3,7 @@ package com.desafio_quality.desafio_quality.service;
 
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
+import com.desafio_quality.desafio_quality.model.RoomDto;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface IResidenceService {
 
 //    public boolean verifyIfResidenceExists (String residenceName);
 
-    public List <String> getSquareRooms(String residence);
+    public List <RoomDto> getSquareRooms(String residence);
 
     public Double getTotalArea(String residenceName);
 

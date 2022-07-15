@@ -53,7 +53,7 @@ public class DistrictServiceImp implements IDistrictService {
 
     public boolean verifyIfDistrictExists (String districtName){
 
-        for(District d :districtRepository.getListDistrict()){
+        for(District d :districtRepository.getAllDistrict()){
             if (districtName.equals(d.getName())){
 
                 System.out.println("erro");

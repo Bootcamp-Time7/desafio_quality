@@ -1,7 +1,6 @@
 package com.desafio_quality.desafio_quality.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +9,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {
@@ -26,9 +24,4 @@ public class Room {
     @NotBlank(message = "O comprimento do cômodo não pode estar vazio")
     @Size(max = 33, message = "O comprimento máximo permitido por cômodo é de 33 metros.")
     private double roomLength;
-
-    //TODO fazer metodo da classe
-    public static Double calculateArea(Room room) {
-        return  room.getRoomLength()*room.getRoomWidth();
-    }
 }

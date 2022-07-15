@@ -29,10 +29,6 @@ public class DistrictRepositoryTest {
     @Test
     void getAllDistrict() {
 
-        var districtList= TestUtilsGenerator.getNewDistrictList();
-
-        Assertions.assertThat(districtList.size()).isEqualTo(districtList.get(3));
-
     }
 
     @Test

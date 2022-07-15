@@ -13,5 +13,5 @@ public interface IDistrictService {
 
     District read(String districtName);
 
-    public boolean verifyIfDistrictExists (String districtName);
+    boolean isDistrictRegistered(String districtName);
 }

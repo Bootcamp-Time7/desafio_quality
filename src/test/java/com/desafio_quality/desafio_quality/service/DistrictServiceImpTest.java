@@ -6,6 +6,7 @@ import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
 import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
 import org.assertj.core.api.ListAssert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,11 +31,6 @@ import static org.mockito.Mockito.*;
 public class DistrictServiceImpTest {
 
 
-    @InjectMocks
-    DistrictServiceImp districtService;
-
-    @Mock
-    ResidenceRepository residenceRepository;
 
     @Mock
     DistrictRepository districtRepository;
@@ -83,6 +79,16 @@ public class DistrictServiceImpTest {
         assertThat(savedDistrict.getName()).isEqualTo(savedDistrict.getName());
         assertThat(savedDistrict.getValuePerSquare()).isEqualTo(savedDistrict.getValuePerSquare());
         verify(districtRepository, atLeastOnce()).saveDistrict(newDistrict);
+    }
+
+    @Test
+    void create_whenDistrictExistInRepository(){
+        District newDistrict = TestUtilsGenerator.getNewDistrict();
+        when(districtRepository.getByName(anyString())).thenReturn(newDistrict);
+
+        DistrictServiceImp districtService = new DistrictServiceImp(districtRepository);
+
+        Assertions.assertThrows(Exception.class, () -> districtService.create(newDistrict));
 
     }
 }

@@ -98,10 +98,6 @@ public class ResidenceServiceTest {
     }
 
     @Test
-    void read() {
-    }
-
-    @Test
     void getSquareRooms_returnRoomDto_whenResidenceExists() {
         Residence newResidence =TestUtilsGenerator.getNewResidence();
 
@@ -140,7 +136,4 @@ public class ResidenceServiceTest {
         Assertions.assertThat(foundTotalPrice).isPositive();
     }
 
-    @Test
-    void testCalculateBiggestRoom() {
-    }
 }

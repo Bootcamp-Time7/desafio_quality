@@ -46,6 +46,8 @@ public class ResidenceServiceTest {
                 .thenReturn(TestUtilsGenerator.getNewResidence());
         BDDMockito.when(residenceRepository.getAllResidence())
                 .thenReturn(TestUtilsGenerator.getNewResidenceList());
+        BDDMockito.doNothing().when(residenceRepository)
+        .saveResidence(ArgumentMatchers.any(Residence.class));        
     }
 
     @Test
@@ -96,6 +98,11 @@ public class ResidenceServiceTest {
 
     @Test
     void create() {
+      Residence residenceTest = TestUtilsGenerator.getNewResidence();
+     Assertions.assertThatCode(() -> {
+        residenceService.create(residenceTest);
+     }).doesNotThrowAnyException();
+     verify(residenceRepository, atLeastOnce()).saveResidence(residenceTest); 
     }
 
 

@@ -22,9 +22,8 @@ public class Room {
     private double roomWidth;
 
     @NotNull(message = "O comprimento do cômodo não pode estar vazio")
-    @DecimalMax( value= "33.0", message = "O comprimento máximo permitido por cômodo é de 33 metros.")
+    @DecimalMax(value = "33", message = "O comprimento máximo permitido por cômodo é de 33 metros.")
     private double roomLength;
-
 
     public static Double calculateArea(Room room) {
         return  room.getRoomLength()*room.getRoomWidth();

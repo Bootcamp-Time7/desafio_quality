@@ -8,8 +8,6 @@ import com.desafio_quality.desafio_quality.model.RoomDto;
 import com.desafio_quality.desafio_quality.repository.DistrictRepository;
 import com.desafio_quality.desafio_quality.repository.ResidenceRepository;
 import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
-
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,8 @@ import org.mockito.quality.Strictness;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static java.util.Optional.ofNullable;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,9 +43,9 @@ public class ResidenceServiceTest {
 
     @BeforeEach
     public void setup(){
-        BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
+        when(residenceRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(TestUtilsGenerator.getNewResidence());
-        BDDMockito.when(residenceRepository.getAllResidence())
+        when(residenceRepository.getAllResidence())
                 .thenReturn(TestUtilsGenerator.getNewResidenceList());
         BDDMockito.doNothing().when(residenceRepository)
                 .saveResidence(ArgumentMatchers.any(Residence.class));
@@ -80,22 +79,22 @@ public class ResidenceServiceTest {
 
         List<Residence> foundResidenceList = residenceService.findAll();
 
-        Assertions.assertThat(foundResidenceList).isNotNull();
-        Assertions.assertThat(foundResidenceList.size()).isEqualTo(3);
-        Assertions.assertThat(foundResidenceList.get(0).getResidenceName()).isEqualTo(residenceData.get(0).getResidenceName());
-        Assertions.assertThat(foundResidenceList).isEqualTo(residenceData);
+        assertThat(foundResidenceList).isNotNull();
+        assertThat(foundResidenceList.size()).isEqualTo(3);
+        assertThat(foundResidenceList.get(0).getResidenceName()).isEqualTo(residenceData.get(0).getResidenceName());
+        assertThat(foundResidenceList).isEqualTo(residenceData);
     }
 
     @Test
     @DisplayName("create")
     void create_doesNotThrowAnException_whenNewResidenceAndNewDistric() {
-        BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
+        when(residenceRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(null);
-        BDDMockito.when(districtRepository.getByName(ArgumentMatchers.anyString()))
+        when(districtRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(null);
         Residence newResidence = TestUtilsGenerator.getNewResidence();
         District newDistrict = newResidence.getResidenceDistrict();
-        Assertions.assertThatCode(() -> {
+        assertThatCode(() -> {
             residenceService.create(newResidence);
         }).doesNotThrowAnyException();
 
@@ -106,15 +105,13 @@ public class ResidenceServiceTest {
     @Test
     @DisplayName("create")
     void create_doesNotThrowAnException_whenNewResidence() {
-        BDDMockito.when(residenceRepository.getByName(ArgumentMatchers.anyString()))
+        when(residenceRepository.getByName(ArgumentMatchers.anyString()))
                 .thenReturn(null);
-        BDDMockito.when(districtRepository.getByName(ArgumentMatchers.anyString()))
-                .thenReturn(TestUtilsGenerator.getNewDistrict());
+        when(districtRepository.getByResidence(ArgumentMatchers.any(Residence.class)))
+                .thenReturn(ofNullable(TestUtilsGenerator.getNewDistrict()));
 
         Residence newResidence = TestUtilsGenerator.getNewResidence();
-        Assertions.assertThatCode(() -> {
-            residenceService.create(newResidence);
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> residenceService.create(newResidence)).doesNotThrowAnyException();
 
         verify(residenceRepository, atLeastOnce()).saveResidence(newResidence);
         verify(districtRepository, never()).saveDistrict(newResidence.getResidenceDistrict());
@@ -124,7 +121,7 @@ public class ResidenceServiceTest {
     @DisplayName("create")
     void create_doesThrowAnException_whenResidenceExists() {
         Residence residenceTest = TestUtilsGenerator.getNewResidence();
-        Assertions.assertThatThrownBy(() -> residenceService.create(residenceTest))
+        assertThatThrownBy(() -> residenceService.create(residenceTest))
                 .isInstanceOf(ElementAlreadyExistsException.class);
     }
 
@@ -135,9 +132,9 @@ public class ResidenceServiceTest {
 
         Residence foundResidence = residenceService.read(newResidence.getResidenceName());
 
-        Assertions.assertThat(foundResidence).isNotNull();
-        Assertions.assertThat(foundResidence.getResidenceName()).isEqualTo(newResidence.getResidenceName());
-        Assertions.assertThat(foundResidence.getListRooms().size()).isEqualTo(3);
+        assertThat(foundResidence).isNotNull();
+        assertThat(foundResidence.getResidenceName()).isEqualTo(newResidence.getResidenceName());
+        assertThat(foundResidence.getListRooms().size()).isEqualTo(3);
     }
 
     @Test
@@ -149,9 +146,9 @@ public class ResidenceServiceTest {
 
         double calculateSquare = newResidence.getListRooms().get(0).getRoomLength()*newResidence.getListRooms().get(0).getRoomWidth();
 
-        Assertions.assertThat(foundRoomDtoList.get(0)).isNotNull();
-        Assertions.assertThat(foundRoomDtoList.size()).isEqualTo(3);
-        Assertions.assertThat(foundRoomDtoList.get(0).getSquare()).isEqualTo(calculateSquare);
+        assertThat(foundRoomDtoList.get(0)).isNotNull();
+        assertThat(foundRoomDtoList.size()).isEqualTo(3);
+        assertThat(foundRoomDtoList.get(0).getSquare()).isEqualTo(calculateSquare);
 
     }
 
@@ -163,9 +160,9 @@ public class ResidenceServiceTest {
 
         Double foundTotalArea = residenceService.getTotalArea(newResidence.getResidenceName());
 
-        Assertions.assertThat(foundTotalArea).isNotNull();
-        Assertions.assertThat(foundTotalArea).isEqualTo(newTotalArea);
-        Assertions.assertThat(foundTotalArea).isPositive();
+        assertThat(foundTotalArea).isNotNull();
+        assertThat(foundTotalArea).isEqualTo(newTotalArea);
+        assertThat(foundTotalArea).isPositive();
 
     }
 
@@ -177,9 +174,9 @@ public class ResidenceServiceTest {
 
         Double foundTotalPrice = residenceService.getTotalPrice(newResidence.getResidenceName());
 
-        Assertions.assertThat(foundTotalPrice).isNotNull();
-        Assertions.assertThat(foundTotalPrice).isEqualTo(newTotalPrice);
-        Assertions.assertThat(foundTotalPrice).isPositive();
+        assertThat(foundTotalPrice).isNotNull();
+        assertThat(foundTotalPrice).isEqualTo(newTotalPrice);
+        assertThat(foundTotalPrice).isPositive();
     }
 
 }

@@ -21,6 +21,7 @@ public class Residence {
     private String residenceName;
 
     @NotNull(message = "O nome do bairro não pode estar vazio")
+    @Valid
     private District residenceDistrict;
 
     @NotEmpty(message = "A lista de cômodos não pode estar vazia")

@@ -1,5 +1,6 @@
 package com.desafio_quality.desafio_quality.controller;
 
+import com.desafio_quality.desafio_quality.excepiton.ElementAlreadyExistsException;
 import com.desafio_quality.desafio_quality.handler.HandlerException;
 import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.model.Room;
@@ -22,7 +23,6 @@ public class ResidenceController {
 
     @PostMapping("/registerResidence")
     public ResponseEntity<Residence> registerResidence (@RequestBody @Valid Residence residence) throws HandlerException {
-
         residenceService.create(residence);
         return ResponseEntity.ok(residence);
     }

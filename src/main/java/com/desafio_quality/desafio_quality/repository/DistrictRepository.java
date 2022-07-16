@@ -2,6 +2,7 @@ package com.desafio_quality.desafio_quality.repository;
 
 
 import com.desafio_quality.desafio_quality.model.District;
+import lombok.Data;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -35,5 +36,4 @@ public class DistrictRepository {
         }
         return tempDistrict;
     }
-
 }

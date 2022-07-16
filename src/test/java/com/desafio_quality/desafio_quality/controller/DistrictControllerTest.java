@@ -2,9 +2,7 @@ package com.desafio_quality.desafio_quality.controller;
 
 import com.desafio_quality.desafio_quality.handler.HandlerException;
 import com.desafio_quality.desafio_quality.model.District;
-import com.desafio_quality.desafio_quality.model.Residence;
 import com.desafio_quality.desafio_quality.service.IDistrictService;
-import com.desafio_quality.desafio_quality.service.IResidenceService;
 import com.desafio_quality.desafio_quality.utils.TestUtilsGenerator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

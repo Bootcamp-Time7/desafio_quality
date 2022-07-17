@@ -5,20 +5,20 @@
 Esse projeto implementa o backend de uma aplicação que permite o usuário calcular a metragem e o custo dos
 diferentes imóveis que possui em sua carteira de clientes.
 
-O objetivo deste projeto é utilizar a regra de negócio acima para exercitar os conceitos de Testes e Validações, portante
-neste projeto foi Criado a seguitente API Rest: 
+O objetivo deste projeto é utilizar a regra de negócio acima para exercitar os conceitos de testes e validações, portanto,
+neste projeto foi criado a seguinte API Rest: 
 
 * US-0001: Calcular a área total de uma propriedade.
 * US-0002: Indicar o preço dessa mesma propriedade com base na área total.
 * US-0003: Determinar qual é o maior cômodo da propriedade.
 * US-0004: Determinar a área de cada cômodo.
 
-Cada Imóvel deve ter:
+Cada imóvel deve ter:
 - um nome do imóvel,
 - um bairro,
 - e a lista de cômodos.
 
-Um Bairro deve ter:
+Um bairro deve ter:
 - nome do bairro,
 - valor do metro quadrado no bairro
 
@@ -38,14 +38,14 @@ Cada cômodo deve ter:
 * Spring Validation
 * Lombok
 * Junit
+* Github actions - CI
 
 
 
-### Clone
+## Requisitos para rodar o projeto:
 
-```console
-https://github.com/Bootcamp-Time7/desafio_quality.git
-```
+* Java 11
+
 
 ## Requisições
 

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
+
 @Service
 public class ResidenceService implements IResidenceService {
 
@@ -31,23 +33,17 @@ public class ResidenceService implements IResidenceService {
 
     @Override
     public void create(Residence residence) {
-        if (residenceRepository.getByName(residence.getResidenceName()) == null && districtRepository.getByName(residence.getResidenceDistrict().getName()) == null) {
-            residenceRepository.saveResidence(residence);
+        var foundResidence = ofNullable(residenceRepository.getByName(residence.getResidenceName()));
+        if(foundResidence.isPresent()) throw new ElementAlreadyExistsException();
+        if(districtRepository.getByResidence(residence).isEmpty())
             districtRepository.saveDistrict(residence.getResidenceDistrict());
-        } else if (residenceRepository.getByName(residence.getResidenceName()) == null && districtRepository.getByName(residence.getResidenceDistrict().getName()) != null){
-            residenceRepository.saveResidence(residence);
-        }else {
-            throw new ElementAlreadyExistsException();
-        }
-
+        residenceRepository.saveResidence(residence);
     }
-
 
     @Override
     public Residence read(String residenceName) {
         return residenceRepository.getByName(residenceName);
     }
-
 
     public List<RoomDto> getSquareRooms(String residence) {
         List<RoomDto> roomSquareList = new ArrayList<>();

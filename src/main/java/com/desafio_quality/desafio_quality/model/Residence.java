@@ -27,4 +27,7 @@ public class Residence {
     @NotEmpty(message = "A lista de cômodos não pode estar vazia")
     private List<@Valid Room> listRooms;
 
+    public String getDistrictName() {
+        return this.residenceDistrict.getName();
+    }
 }

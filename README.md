@@ -44,7 +44,8 @@ Cada cômodo deve ter:
 ### Clone
 
 ```console
-https://github.com/Bootcamp-Time7/desafio_quality.git```
+https://github.com/Bootcamp-Time7/desafio_quality.git
+```
 
 ## Requisições
 
